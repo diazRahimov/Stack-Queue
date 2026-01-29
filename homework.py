@@ -12,36 +12,55 @@ class LinkedList:
         new_node = Node(data)
         if self.head is None:
             self.head = new_node
-        else:
-            temp = self.head
-            while temp.next:
-                temp = temp.next
-            temp.next = new_node
+            return
+        
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = new_node
+    
+    def prepend(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
 
+
+    def delete(self, data):
+        temp = self.head
+        
+        if temp and temp.data == data:
+            self.haed = temp.next
+            return
+        
+        prev = None
+        while temp and temp.data != data:
+            prev = temp
+            temp = temp.next
+
+        if temp is None:
+            return
+        
+        prev.next = temp.next
+
+    def search(self,data):
+        temp = self.haed
+        while temp:
+            if temp.data == data:
+                return True
+            temp = temp.next 
+        return False
+    
+    def length(self):
+        count = 0
+        temp = self.head
+        while temp:
+            count += 1
+            temp = temp.next
+        return count
+    
     def print_all(self):
         temp = self.head
         while temp:
-            print(temp.data)
+            print(temp.data, end = " -> ")
             temp = temp.next
-
-
-# ll = LinkedList()
-# ll.append(1)
-# ll.append(2)
-# ll.append(3)
-
-# ll.print_all()
-
-
-# ============ QUEUE ============ #
-
-from collections import deque
-
-queue = deque()
-
-
-queue.append(10)
-queue.append(20)
-queue.append(30)
-
-print(queue.popleft())
+        print("None")
